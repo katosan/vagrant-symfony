@@ -1,4 +1,4 @@
 ---
 - name: Install PHP5-CLI
   sudo: yes
-  apt:  package=php5-cli state=latest
+  apt:  package=php7.0-cli state=latest

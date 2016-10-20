@@ -9,6 +9,17 @@
   sudo: yes
   command: apt-key add /tmp/erlang-signing-key-public.asc
 
+- name: backport
+  shell: echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
+
+- name: Download Backport key
+  sudo: yes
+  command: gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
+
+- name: Add Backport  key
+  sudo: yes
+  command: gpg -a --export 7638D0442B90D010 | sudo apt-key add -
+
 - name: Add RabbitMQ repository
   shell: echo 'deb http://www.rabbitmq.com/debian/ testing main' > /etc/apt/sources.list.d/rabbitmq.list creates=/etc/apt/sources.list.d/rabbitmq.list
 
@@ -19,6 +30,9 @@
   sudo: yes
   command: apt-key add /tmp/rabbitmq-signing-key-public.asc
 
+- name: update keyring
+  sudo: yes
+  command: apt-key update
 - name: Update apt again
   sudo: yes
   apt:  update_cache=yes

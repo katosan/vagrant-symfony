@@ -7,31 +7,30 @@
       - mcrypt
       - vim
     php_packages:
-      - { name: dev, package: php5-dev }
+      - { name: dev, package: php7.0-dev }
       - { name: pear, package: php-pear }
-      - { name: xdebug, package: php5-xdebug }
-      - { name: curl, package: php5-curl }
-      - { name: mcrypt, package: php5-mcrypt }
-      - { name: mysql, package: php5-mysql }
-      - { name: redis, package: php5-redis }
+      - { name: xdebug, package: php7.0-xdebug }
+      - { name: curl, package: php7.0-curl }
+      - { name: mcrypt, package: php7.0-mcrypt }
+      - { name: mysql, package: php7.0-mysql }
+      - { name: redis, package: php7.0-redis }
       - { name: apc, package: php-apc }
-      - { name: memcached, package: php5-memcached }
-      - { name: sqlite, package: php5-sqlite }
-      - { name: gd, package: php5-gd }
+      - { name: memcached, package: php7.0-memcached }
+      - { name: sqlite, package: php7.0-sqlite3 }
+      - { name: gd, package: php7.0-gd }
     php_extensions:
       - { name: "jsmin", package: "pecl.php.net/jsmin-beta" }
-      - { name: "mongo", package: "pecl.php.net/mongo" }
       - { name: "xhprof", package: "pecl.php.net/xhprof-beta" }
-    php_ppa: php5
+    php_ppa: php
     nodejs:
       version: _5.x
       packages: [casperjs, phantomjs, bower, gulp]
   roles:
     - init
     - nginx
-    - php5-fpm
-    - php5-cli
-    - php5-common
+    - php7-fpm
+    - php7-cli
+    - php7-common
     - composer
     - phpunit
     - mysql
