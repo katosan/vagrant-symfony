@@ -34,7 +34,6 @@
     - composer
     - phpunit
     - mysql
-    - mongo
     - git
     - curl
     - sqlite
