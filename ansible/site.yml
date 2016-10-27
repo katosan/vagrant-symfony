@@ -6,6 +6,7 @@
     sys_packages:
       - mcrypt
       - vim
+      - multitail
     php_packages:
       - { name: dev, package: php7.0-dev }
       - { name: pear, package: php-pear }
