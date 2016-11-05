@@ -20,6 +20,10 @@
   sudo: yes
   command: gpg -a --export 7638D0442B90D010 | sudo apt-key add -
 
+- name: Add new new key
+  sudo: yes
+  command: wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+
 - name: Add RabbitMQ repository
   shell: echo 'deb http://www.rabbitmq.com/debian/ testing main' > /etc/apt/sources.list.d/rabbitmq.list creates=/etc/apt/sources.list.d/rabbitmq.list
 
