@@ -12,17 +12,19 @@
 - name: backport
   shell: echo 'deb http://ftp.debian.org/debian wheezy-backports main' | sudo tee /etc/apt/sources.list.d/wheezy_backports.list
 
-- name: Download Backport key
-  sudo: yes
-  command: gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010
 
-- name: Add Backport  key
+- name: Add rabbit key
   sudo: yes
-  command: gpg -a --export 7638D0442B90D010 | sudo apt-key add -
+  shell: wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+  ignore_errors: true
 
-- name: Add new new key
+- name: Add backport key 1
   sudo: yes
-  command: wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
+  shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
+
+- name: Add backport key 2
+  sudo: yes
+  shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7638D0442B90D010
 
 - name: Add RabbitMQ repository
   shell: echo 'deb http://www.rabbitmq.com/debian/ testing main' > /etc/apt/sources.list.d/rabbitmq.list creates=/etc/apt/sources.list.d/rabbitmq.list
@@ -37,6 +39,7 @@
 - name: update keyring
   sudo: yes
   command: apt-key update
+
 - name: Update apt again
   sudo: yes
   apt:  update_cache=yes

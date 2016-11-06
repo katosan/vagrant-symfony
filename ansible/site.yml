@@ -9,13 +9,11 @@
       - multitail
     php_packages:
       - { name: dev, package: php7.0-dev }
-      - { name: pear, package: php7.0-pear }
       - { name: xdebug, package: php7.0-xdebug }
       - { name: curl, package: php7.0-curl }
       - { name: mcrypt, package: php7.0-mcrypt }
       - { name: mysql, package: php7.0-mysql }
       - { name: redis, package: php7.0-redis }
-      - { name: apc, package: php7.0-apc }
       - { name: memcached, package: php7.0-memcached }
       - { name: sqlite, package: php7.0-sqlite3 }
       - { name: gd, package: php7.0-gd }
