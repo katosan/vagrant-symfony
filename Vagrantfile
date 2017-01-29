@@ -3,10 +3,10 @@ Vagrant.configure("2") do |config|
     config.vm.box       = 'precise64'
     config.vm.box_url   = 'http://files.vagrantup.com/precise64.box'
 
-    config.vm.hostname = "budokyousou.helios"
+    config.vm.hostname = "pimcore.helios"
 
     # Configure the network interfaces
-    config.vm.network :private_network, ip:    "192.168.3.11"
+    config.vm.network :private_network, ip:    "192.168.3.15"
     config.vm.network :forwarded_port, guest: 22,    host: 2202, id: 'ssh'
     config.vm.network :forwarded_port, guest: 80,    host: 8090
     config.vm.network :forwarded_port, guest: 8081,  host: 8082
