@@ -1,13 +1,29 @@
+require 'yaml'
 Vagrant.configure("2") do |config|
     # Configure the box to use
     config.vm.box       = 'precise64'
     config.vm.box_url   = 'http://files.vagrantup.com/precise64.box'
 
-    config.vm.hostname = "cvvault.helios"
+    if File.exist?('../vagrant.yml') then
+        sconf = YAML::load(File.read("../vagrant.yml"))
+        hostname = sconf['vagrant']['hostname']
+        extip = sconf['vagrant']['ip']
+        extname = sconf['vagrant']['name']
+        extssh = sconf['vagrant']['ssh']
+        folder = sconf['vagrant']['folder']
+    else
+        hostname = 'default.helios'
+        extip = '192.168.33.90'
+        extname = (0...8).map { (65 + rand(26)).chr }.join
+        extssh = 2200
+        folder  = false
+    end
+
+    config.vm.hostname = hostname
 
     # Configure the network interfaces
-    config.vm.network :private_network, ip:    "192.168.3.10"
-    config.vm.network :forwarded_port, guest: 22,    host: 2201, id: 'ssh'
+    config.vm.network :private_network, ip:   extip
+    config.vm.network :forwarded_port, guest: 22,    host: extssh, id: 'ssh'
     config.vm.network :forwarded_port, guest: 80,    host: 8089
     config.vm.network :forwarded_port, guest: 8081,  host: 8081
     config.vm.network :forwarded_port, guest: 3306,  host: 3307
@@ -16,12 +32,22 @@ Vagrant.configure("2") do |config|
     config.ssh.forward_agent = true
 
     # Configure shared folders
-    config.vm.synced_folder ".",  "/vagrant", id: "vagrant-root", :nfs => true
-    config.vm.synced_folder "..", "/var/www", id: "application",  :nfs => true
+    if folder != false then
+        folder.each do |entry|
+            entry.each do |key, glob|
+                host = glob['host']
+                guest = glob['guest']
+                config.vm.synced_folder host,  guest, id: key, :nfs => true
+            end
+        end
+    else
+        config.vm.synced_folder ".",  "/vagrant", id: "vagrant-root", :nfs => true
+        config.vm.synced_folder "..", "/var/www", id: "application",  :nfs => true
+    end
 
     # Configure VirtualBox environment
     config.vm.provider :virtualbox do |v|
-        v.name = (0...8).map { (65 + rand(26)).chr }.join
+        v.name = extname
         v.customize [ "modifyvm", :id, "--memory", 1024 ]
     end
 
