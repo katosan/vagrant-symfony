@@ -1,13 +1,16 @@
 ---
   - name: Install nginx
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt:  pkg=nginx state=latest
 
   - name: Ensure nginx log directory exists
     file: dest=/var/log/nginx/symfony state=directory
 
   - name: Change default nginx site
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     template: src=default.tpl dest=/etc/nginx/sites-available/default
     notify: restart nginx
-

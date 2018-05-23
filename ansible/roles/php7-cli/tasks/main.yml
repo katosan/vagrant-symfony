@@ -1,4 +1,6 @@
 ---
-- name: Install PHP5-CLI
-  sudo: yes
-  apt:  package=php7.0-cli state=latest
+- name: Install PHP7-CLI
+  become: yes
+  become_user: root
+  become_method: sudo
+  apt:  package=php7.1-cli state=latest

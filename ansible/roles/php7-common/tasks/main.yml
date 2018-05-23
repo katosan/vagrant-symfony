@@ -1,14 +1,18 @@
 ---
 - name: Install PHP packages
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   apt:  package={{ item.package }} state=latest
-  with_items: php_packages
+  with_items: "{{ php_packages }}"
 
 - name: Enable PHP packages
-  sudo: yes
-  command: /usr/sbin/phpenmod {{ item.name }} creates=/etc/php/7.0/cli/conf.d/20-{{ item.name }}.ini
-  with_items: php_packages
-  notify: restart php7.0-fpm
+  become: yes
+  become_user: root
+  become_method: sudo
+  command: /usr/sbin/phpenmod {{ item.name }} creates=/etc/php/7.1/cli/conf.d/20-{{ item.name }}.ini
+  with_items: "{{ php_packages }}"
+  notify: restart php7.1-fpm
 
 #- name: Install PHP extensions
 #  sudo: yes
@@ -24,4 +28,4 @@
 #  sudo: yes
 #  command: /usr/sbin/phpenmod {{ item.name }} creates=/etc/php/7.0/cli/conf.d/20-{{ item.name }}.ini
 #  with_items: php_extensions
-#  notify: restart php7.0-fpm
+#  notify: restart php7.1-fpm

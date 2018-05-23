@@ -1,10 +1,14 @@
 ---
   - name: Update apt
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt:  update_cache=yes
 
   - name: Install system packages
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt:  pkg={{ item }} state=latest
     with_items:
       - curl
@@ -13,14 +17,20 @@
       - python-software-properties
 
   - name: Add ppa repository
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt_repository: repo=ppa:ondrej/{{ php_ppa }}
 
   - name: Update apt again
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt:  update_cache=yes
 
   - name: Install extra packages
-    sudo: yes
+    become: yes
+    become_user: root
+    become_method: sudo
     apt:  pkg={{ item }} state=latest
-    with_items: sys_packages
+    with_items: "{{ sys_packages }}"

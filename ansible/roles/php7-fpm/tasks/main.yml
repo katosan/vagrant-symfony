@@ -1,4 +1,6 @@
 ---
 - name: Install PHP7-FPM
-  sudo: yes
-  apt:  package=php7.0-fpm state=latest
+  become: yes
+  become_user: root
+  become_method: sudo
+  apt:  package=php7.1-fpm state=latest

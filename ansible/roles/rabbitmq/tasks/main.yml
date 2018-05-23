@@ -6,7 +6,9 @@
   get_url: url=http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc dest=/tmp/erlang-signing-key-public.asc
 
 - name: Add Erlang OTP key
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   command: apt-key add /tmp/erlang-signing-key-public.asc
 
 - name: backport
@@ -14,16 +16,22 @@
 
 
 - name: Add rabbit key
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   shell: wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
   ignore_errors: true
 
 - name: Add backport key 1
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
 
 - name: Add backport key 2
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7638D0442B90D010
 
 - name: Add RabbitMQ repository
@@ -33,19 +41,27 @@
   get_url: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc dest=/tmp/rabbitmq-signing-key-public.asc
 
 - name: Add RabbitMQ key
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   command: apt-key add /tmp/rabbitmq-signing-key-public.asc
 
 - name: update keyring
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   command: apt-key update
 
 - name: Update apt again
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   apt:  update_cache=yes
 
 - name: Install RabbitMQ
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   apt:  pkg=rabbitmq-server state=latest
 
 - name: Enable RabbitMQ plugins

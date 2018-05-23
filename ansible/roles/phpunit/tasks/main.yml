@@ -1,4 +1,6 @@
 ---
 - name: Install PHPunit
-  sudo: yes
+  become: yes
+  become_user: root
+  become_method: sudo
   apt:  package=phpunit state=latest
