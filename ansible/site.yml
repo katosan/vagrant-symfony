@@ -4,6 +4,7 @@
   become_user: root
   become_method: sudo
   vars:
+    server_name: *.helios
     doc_root: /var/www/web
     sys_packages:
       - mcrypt
@@ -14,6 +15,7 @@
       - { name: dev, package: php7.1-dev }
       - { name: xdebug, package: php7.1-xdebug }
       - { name: curl, package: php7.1-curl }
+      - { name: dom, package: php7.1-dom }
       - { name: mcrypt, package: php7.1-mcrypt }
       - { name: mysql, package: php7.1-mysql }
       - { name: redis, package: php7.1-redis }

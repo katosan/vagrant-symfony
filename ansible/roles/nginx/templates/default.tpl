@@ -1,7 +1,7 @@
 server {
     listen 80;
 
-    server_name symfony;
+    server_name {{ server_name }};
     root        {{ doc_root }};
 
     error_log   /var/log/nginx/symfony/error.log;

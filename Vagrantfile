@@ -2,7 +2,6 @@ require 'yaml'
 Vagrant.configure("2") do |config|
     # Configure the box to use
     config.vm.box       = 'ubuntu/artful64'
-    #config.vm.box_url   = 'http://files.vagrantup.com/artful64.box'
 
     if File.exist?('../vagrant.yml') then
         sconf = YAML::load(File.read("../vagrant.yml"))
