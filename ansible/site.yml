@@ -4,7 +4,7 @@
   become_user: root
   become_method: sudo
   vars:
-    server_name: *.helios
+    server_name: "*.helios"
     doc_root: /var/www/web
     sys_packages:
       - mcrypt
